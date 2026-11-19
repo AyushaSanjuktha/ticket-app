@@ -35,5 +35,9 @@ def test_list_is_sorted_high_medium_low(client):
 def test_empty_title_returns_400(client):
     response = client.post("/api/tickets", json={"title": "", "category": "Hardware", "priority": "High"})
     assert response.status_code == 400
+
+def test_screen_shows_resolved_status(client):
+    html = client.get("/").get_data(as_text=True)
+    assert '<span class="badge">Resolved</span>' in html
 # Add your own tests below: one failing test for each bug you find,
 # plus at least 5 negative tests.
